@@ -52,3 +52,14 @@ tags_df["tag_id"] = tags_df.index + 1
 
 print(tags_df.head())
 print(f"Number of unique tags: {len(tags_df)}")
+
+# build the offer_tags linking table with real offer_id and tag_id
+offer_tags_df = offer_tags_raw.rename(columns={"tags": "tag_name"})
+
+offer_tags_df = offer_tags_df.merge(offers_df[["offer_id", "url"]], on="url", how="left")
+offer_tags_df = offer_tags_df.merge(tags_df, on="tag_name", how="left")
+
+offer_tags_df = offer_tags_df[["offer_id", "tag_id"]]
+
+print(offer_tags_df.head(10))
+print(f"Number of offer-tag links: {len(offer_tags_df)}")
