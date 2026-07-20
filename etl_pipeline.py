@@ -38,3 +38,17 @@ offers_df = offers_df[["offer_id", "title", "location", "remote", "created_at", 
 
 print(offers_df.head())
 print(f"Number of offers: {len(offers_df)}")
+
+# explode the tags column so each tag gets its own row
+offer_tags_raw = df[["url", "tags"]].explode("tags")
+
+print(offer_tags_raw.head(10))
+print(f"Number of rows after exploding: {len(offer_tags_raw)}")
+
+# build the tags table (unique tag names)
+tags_df = offer_tags_raw[["tags"]].drop_duplicates().reset_index(drop=True)
+tags_df = tags_df.rename(columns={"tags": "tag_name"})
+tags_df["tag_id"] = tags_df.index + 1
+
+print(tags_df.head())
+print(f"Number of unique tags: {len(tags_df)}")
