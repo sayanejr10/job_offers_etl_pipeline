@@ -5,7 +5,7 @@ import json
 with open("job_offers.json", "r", encoding="utf-8") as f:
     raw_data = json.load(f)
 
-# Step 2: convert the list of dictionaries into a Pandas DataFrame
+# convert the list of dictionaries into a Pandas DataFrame
 df = pd.DataFrame(raw_data)
 
 # quick inspection
@@ -18,3 +18,6 @@ df["created_at"] = pd.to_datetime(df["created_at"], unit="s")
 
 # check for missing values in each column
 print(df.isnull().sum())
+
+# check for duplicates based on the offer URL
+print(f"Number of duplicate URLs: {df.duplicated(subset='url').sum()}")
