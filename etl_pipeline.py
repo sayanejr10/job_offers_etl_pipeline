@@ -66,7 +66,7 @@ print(offer_tags_df.head(10))
 print(f"Number of offer-tag links: {len(offer_tags_df)}")
 
 
-# Step 13: load the 4 tables into a SQLite database
+# load the 4 tables into a SQLite database
 connection = sqlite3.connect("job_offers.db")
 
 companies_df.to_sql("companies", connection, if_exists="replace", index=False)
@@ -77,3 +77,20 @@ offer_tags_df.to_sql("offer_tags", connection, if_exists="replace", index=False)
 connection.close()
 
 print("Data loaded into job_offers.db")
+
+
+# run a few SQL queries to verify the database
+connection = sqlite3.connect("job_offers.db")
+
+query = """
+SELECT offers.title, companies.company, offers.location
+FROM offers
+JOIN companies ON offers.company_id = companies.company_id
+WHERE offers.remote = 1
+LIMIT 5
+"""
+
+result = pd.read_sql_query(query, connection)
+print(result)
+
+connection.close()
