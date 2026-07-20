@@ -21,3 +21,10 @@ print(df.isnull().sum())
 
 # check for duplicates based on the offer URL
 print(f"Number of duplicate URLs: {df.duplicated(subset='url').sum()}")
+
+# build the companies table (unique company names)
+companies_df = df[["company"]].drop_duplicates().reset_index(drop=True)
+companies_df["company_id"] = companies_df.index + 1
+
+print(companies_df.head())
+print(f"Number of unique companies: {len(companies_df)}")
