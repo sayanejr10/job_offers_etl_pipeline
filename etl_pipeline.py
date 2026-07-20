@@ -28,3 +28,13 @@ companies_df["company_id"] = companies_df.index + 1
 
 print(companies_df.head())
 print(f"Number of unique companies: {len(companies_df)}")
+
+# build the offers table, linking each offer to its company_id
+offers_df = df.merge(companies_df, on="company", how="left")
+
+offers_df["offer_id"] = offers_df.index + 1
+
+offers_df = offers_df[["offer_id", "title", "location", "remote", "created_at", "url", "company_id"]]
+
+print(offers_df.head())
+print(f"Number of offers: {len(offers_df)}")
