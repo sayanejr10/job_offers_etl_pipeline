@@ -1,0 +1,11 @@
+
+job_offers.json
+job_offers.csv
+job_offers.db
+
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+.DS_Store
