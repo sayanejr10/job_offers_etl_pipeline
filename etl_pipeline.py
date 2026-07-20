@@ -94,3 +94,17 @@ result = pd.read_sql_query(query, connection)
 print(result)
 
 connection.close()
+
+query_tags = """
+SELECT offers.title, tags.tag_name
+FROM offers
+JOIN offer_tags ON offers.offer_id = offer_tags.offer_id
+JOIN tags ON offer_tags.tag_id = tags.tag_id
+LIMIT 10
+"""
+
+connection = sqlite3.connect("job_offers.db")
+result_tags = pd.read_sql_query(query_tags, connection)
+connection.close()
+
+print(result_tags)
